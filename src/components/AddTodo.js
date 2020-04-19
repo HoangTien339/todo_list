@@ -1,7 +1,12 @@
 import React from 'react'
-import { addTodo, updateAddTodo, addLog } from './../actions'
+import {
+    addTodo,
+    updateAddTodo,
+    addLog,
+    submitTodo } from './../actions'
 import _ from 'lodash'
 import { connect } from 'react-redux'
+import { uniqueId } from '../utils'
 
 class AddTodo extends React.Component {
     constructor(props) {
@@ -21,19 +26,14 @@ class AddTodo extends React.Component {
 
     handleAddTodo(event) {
         event.preventDefault();
-        const id = _.uniqueId()
         const payload = {
-            id,
+            id: uniqueId(),
             todo: this.props.addTodo.value,
             complete: false
         }
 
-        this.props.dispatch(addTodo(payload))
+        this.props.dispatch(submitTodo(payload))
         this.handleUpdateAddTodo()
-        this.props.dispatch(addLog({
-            id: _.uniqueId(),
-            value: `${payload.todo} has been added!`
-        }))
     }
 
     render() {

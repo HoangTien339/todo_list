@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
-import { toggleTodo, addLog } from './../actions'
+import { toggleTodo, addLog, fetchTodo } from './../actions'
+import { uniqueId } from './../utils'
 import TodoPage from './TodoPage'
 import _ from 'lodash'
 
-const getTodoList = todoList => todoList;
-
 const mapStateToProps = state => {
     return {
-        todoList: getTodoList(state.todoList)
+        todoList: state.todoList
     };
 }
 
@@ -17,9 +16,12 @@ const mapDispatchToProps = dispatch => {
             dispatch(toggleTodo(todo.id))
 
             dispatch(addLog({
-                id: _.uniqueId(),
+                id: uniqueId(),
                 value: `${todo.todo} has been changed to ${todo.complete ? 'Complete' : 'Incomplete'}!`
             }))
+        },
+        fetchTodo: () => {
+            dispatch(fetchTodo())
         }
     };
 }

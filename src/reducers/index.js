@@ -2,7 +2,8 @@ import {
     TOGGLE_TODO,
     ADD_TODO,
     UPDATE_ADD_TODO,
-    ADD_LOG } from './../constants'
+    ADD_LOG,
+    FETCH_TODO_SUCCESS } from './../constants'
 
 const initialState = {
     todoList: [],
@@ -34,6 +35,10 @@ const todoApp = (state = initialState, action) => {
                     }
                 ]
             });
+        case FETCH_TODO_SUCCESS:
+            return Object.assign({}, state, {
+                todoList: action.data
+            })
         case UPDATE_ADD_TODO:
             return Object.assign({}, state, {
                 addTodo: {
